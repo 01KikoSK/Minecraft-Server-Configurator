@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Server Configurator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin: 10px 0 5px; }
+    input[type="text"], select { width: 100%; padding: 8px; }
+    button { margin-top: 20px; padding: 10px 15px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+    button:hover { background: #45a049; }
+  </style>
+</head>
+<body>
+  <h1>Minecraft Server Configurator</h1>
+  <label for="server-name">Server Name:</label>
+  <input type="text" id="server-name" placeholder="Enter your server name">
+
+  <label for="max-players">Max Players:</label>
+  <input type="text" id="max-players" placeholder="Enter max players">
+
+  <label for="game-mode">Game Mode:</label>
+  <select id="game-mode">
+    <option value="survival">Survival</option>
+    <option value="creative">Creative</option>
+    <option value="adventure">Adventure</option>
+    <option value="spectator">Spectator</option>
+  </select>
+
+  <button onclick="saveConfig()">Save Config</button>
+
+  <script>
+    function saveConfig() {
+      const serverName = document.getElementById('server-name').value;
+      const maxPlayers = document.getElementById('max-players').value;
+      const gameMode = document.getElementById('game-mode').value;
+
+      const config = `
+# Minecraft Server Properties
+server-name=${serverName}
+max-players=${maxPlayers}
+gamemode=${gameMode}
+`;
+
+      const blob = new Blob([config], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "server.properties";
+      link.click();
+
+      alert("Configuration file downloaded!");
+    }
+  </script>
+</body>
+</html>
